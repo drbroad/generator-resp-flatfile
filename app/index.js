@@ -20,10 +20,10 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
     var done = this.async();
 
     // have Yeoman greet the user
-    console.log(this.yeoman);
+    //console.log(this.yeoman);
 
     // replace it with a short and sweet description of your generator
-    console.log(chalk.magenta('You\'re using the fantastic RespFlatfile generator.'));
+    console.log(chalk.magenta('Response:  Create a flatfile website.'));
 
     var prompts = [{
       type: 'confirm',
@@ -40,8 +40,10 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
   },
 
   app: function () {
-    this.mkdir('app');
-    this.mkdir('app/templates');
+    this.mkdir('assets');
+    this.mkdir('assets/js');
+    this.mkdir('assets/css');
+    this.mkdir('assets/img');
 
     this.copy('_package.json', 'package.json');
     this.copy('_bower.json', 'bower.json');

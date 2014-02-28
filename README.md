@@ -1,17 +1,11 @@
 # generator-resp-flatfile [![Build Status](https://secure.travis-ci.org/drbroad/generator-resp-flatfile.png?branch=master)](https://travis-ci.org/drbroad/generator-resp-flatfile)
 
-> [Yeoman](http://yeoman.io) generator
+> [Response](http://thepowertoprovoke.com) flatfile generator for [Yeoman](http://yeoman.io)
 
 
 ## Getting Started
 
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
+### When should i use this generator?
 
 Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
 
