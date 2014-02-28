@@ -87,6 +87,7 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
 		this.template('_index.html', 'www/index.html');
 		this.template('assets/less/app.less', 'www/assets/less/app.less');
 		this.copy('assets/less/partials/variables.less', 'www/assets/less/partials/variables.less');
+		this.copy('assets/js/main.js', 'www/assets/scripts/main.js');
 
 		this.template('_bowerrc', '.bowerrc');
 		this.template('_bower.json', 'bower.json');

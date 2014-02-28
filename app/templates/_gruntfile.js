@@ -50,7 +50,7 @@ module.exports = function(grunt) {
 						'<%= bowerDir %>/bootstrap/js/scrollspy.js',
 						'<%= bowerDir %>/bootstrap/js/tab.js',
 						'<%= bowerDir %>/bootstrap/js/affix.js',
-					],					
+					],
 					// MAIN SCRIPTS...
 					'www/assets/js/main.min.js': [
 						'www/assets/scripts/plugins/*.js',
@@ -94,7 +94,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('default', [
 		'less',
 		'uglify',
-		'concat'
 	]);
 	grunt.registerTask('dev', [
 		'watch'
