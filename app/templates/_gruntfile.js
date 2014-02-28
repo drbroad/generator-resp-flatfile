@@ -78,7 +78,7 @@ module.exports = function(grunt) {
 				options: {
 					livereload: true
 				},
-				files: 'www/assets/scripts/**/*.js',
+				files: '<%%= jshint.all %>',
 				tasks: ['uglify'],
 			},
 		}
