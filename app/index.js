@@ -7,72 +7,80 @@ var chalk = require('chalk');
 var RespFlatfileGenerator = yeoman.generators.Base.extend({
 	init: function () {
 		this.pkg = yeoman.file.readJSON(path.join(__dirname, '../package.json'));
-
+		
 		this.on('end', function () {
-			if (!this.options['skip-install']) {
-				this.npmInstall();
-				this.bowerInstall();
-			}
+			this.installDependencies({
+				bower: true,
+				npm: true,
+				skipInstall: false,
+				callback: function () {
+					console.log(chalk.magenta ( 'Everything is ready! Running grunt build...') );
+					this.emit('dependenciesInstalled');
+				}.bind(this)
+			});
 		});
 
+		// Now you can bind to the dependencies installed event
+		this.on('dependenciesInstalled', function() {
+			this.spawnCommand('grunt');
+		});			
 	},
 
 	askFor: function () {
-	var done = this.async();
+		var done = this.async();
 
-	// have Yeoman greet the user
-	//console.log(this.yeoman);
+		// have Yeoman greet the user
+		//console.log(this.yeoman);
 
-	// replace it with a short and sweet description of your generator
-	console.log(chalk.magenta('Response:  Create a flatfile website.'));
+		// replace it with a short and sweet description of your generator
+		console.log(chalk.magenta('Response:  Create a flatfile website.'));
 
-	var prompts = [
-		{
-			name: "jobName",
-			message: "What would you like to call this project?",
-		},
-		{
-			name: "author",
-			message: "What is the authors (your) name?",
-			default: "Marc Broad"
-		},
-		{
-			name: "authorEmail",
-			message: "What is your email?",
-			default: "mbroad@thepowertoprovoke.com"
-		},
-		{
-			type: "confirm",
-			name: "IE8",
-			message: "Do you need IE8 support (jquery 1.9, respond.js) ?",
-			default: false
-		},
-		{
-			name: "bowerDir",
-			message: "What directory would you like bower to install components to?",
-			default: "vendor"
-		},
-	];
+		var prompts = [
+			{
+				name: "jobName",
+				message: "What would you like to call this project?",
+			},
+			{
+				name: "author",
+				message: "What is the authors (your) name?",
+				default: "Marc Broad"
+			},
+			{
+				name: "authorEmail",
+				message: "What is your email?",
+				default: "mbroad@thepowertoprovoke.com"
+			},
+			{
+				type: "confirm",
+				name: "IE8",
+				message: "Do you need IE8 support (jquery 1.9, respond.js) ?",
+				default: false
+			},
+			{
+				name: "bowerDir",
+				message: "What directory would you like bower to install components to?",
+				default: "vendor"
+			},
+		];
 
-	this.prompt(prompts, function (props) {
-		this.jobName = props.jobName;
-		this.author = props.author;
-		this.authorEmail = props.authorEmail;
-		this.jqueryVersion = "~2.1.0";
-		this.bowerDir = props.bowerDir;
-		this.IE8 = props.IE8;
+		this.prompt(prompts, function (props) {
+			this.jobName = props.jobName;
+			this.author = props.author;
+			this.authorEmail = props.authorEmail;
+			this.jqueryVersion = "~2.1.0";
+			this.bowerDir = props.bowerDir;
+			this.IE8 = props.IE8;
 
-		if (props.IE8){
-			this.jqueryVersion = "1.9.0";
-		}
+			if (props.IE8){
+				this.jqueryVersion = "1.9.0";
+			}
 
-	 	done();
-	}.bind(this));
+		 	done();
+		}.bind(this));
 	},
 
 	app: function () {
 		this.mkdir('www');
-
 		this.mkdir('www/assets');
 		this.mkdir('www/assets/js');
 		this.mkdir('www/assets/scripts');
@@ -88,11 +96,9 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
 		this.template('assets/less/app.less', 'www/assets/less/app.less');
 		this.copy('assets/less/partials/variables.less', 'www/assets/less/partials/variables.less');
 		this.copy('assets/js/main.js', 'www/assets/scripts/main.js');
-
 		this.template('_bowerrc', '.bowerrc');
 		this.template('_bower.json', 'bower.json');
 		this.template('_package.json', 'package.json');
-
 
 	},
 
