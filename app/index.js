@@ -43,8 +43,8 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
 		},
 		{
 			type: "confirm",
-			name: "jqueryLegacy",
-			message: "Do you need IE8 support for jQuery?",
+			name: "IE8",
+			message: "Do you need IE8 support (jquery 1.9, respond.js) ?",
 			default: false
 		},
 		{
@@ -60,8 +60,9 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
 		this.authorEmail = props.authorEmail;
 		this.jqueryVersion = "~2.1.0";
 		this.bowerDir = props.bowerDir;
+		this.IE8 = props.IE8;
 
-		if (props.jqueryLegacy){
+		if (props.IE8){
 			this.jqueryVersion = "1.9.0";
 		}
 
@@ -74,20 +75,21 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
 
 		this.mkdir('www/assets');
 		this.mkdir('www/assets/js');
+		this.mkdir('www/assets/scripts');
 		this.mkdir('www/assets/css');
 		this.mkdir('www/assets/img');
 		this.mkdir('www/assets/less');
+		this.mkdir('www/assets/less/partials');
 		this.mkdir('www/assets/fonts');
 
-		this.template('index.html', 'www/index.html');
-
-
 		this.template('_index.md', 'index.md');
-		//this.template('Gruntfile.js', 'Gruntfile.js');
-		//this.template('index.html', 'index.html');
+		this.template('_gruntfile.js', 'Gruntfile.js');
+		this.template('_index.html', 'www/index.html');
+		this.template('assets/less/app.less', 'www/assets/less/app.less');
+		this.copy('assets/less/partials/variables.less', 'www/assets/less/partials/variables.less');
+
 		this.template('_bowerrc', '.bowerrc');
 		this.template('_bower.json', 'bower.json');
-
 		this.template('_package.json', 'package.json');
 
 

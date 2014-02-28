@@ -15,33 +15,47 @@ module.exports = function(grunt) {
 		less: {
 			dist: {
 				files: {
-					'/www/assets/css/styles.min.css': [
-						'/www/assets/less/app.less'
+					'www/assets/css/styles.min.css': [
+						'www/assets/less/app.less'
 					],
 				},
-				options: l
+				options: {
 					compress: true,
 					// LESS source map
 					// To enable, set sourceMap to true and update sourceMapRootpath based on your install
-					sourceMap: false,
+					sourceMap: true,
+					sourceMapFilename: 'www/assets/css/main.min.css.map',
+					sourceMapRootpath: 'www/'
 				}
 			}
 		},
 		uglify: {
 			dist: {
 				files: {
-					// // MODERNIZR...
-					// './httpdocs/js/compiled/modernizr.custom.min.js': [
-					// 	"./httpdocs/assets/modernizr/modernizr.js",
-					// 	'./httpdocs/js/modernizr-polyfills.js'
-					// ],
-					// // CORE...
-					// './httpdocs/js/compiled/core.min.js': [
-					// 	'./httpdocs/assets/jquery-legacy/jquery.js',
-					// 	'./httpdocs/assets/momentjs/moment.js',
-					// 	'./httpdocs/assets/momentjs/moment-timezone.js'
-					// ],
-
+					// COMPONENTS
+					'www/assets/js/components.min.js': [
+						'<%= bowerDir %>/jquery/dist/jquery.js',
+						<% if ( IE8 ){ %>
+						'<%= bowerDir %>/respond/src/respond.js',
+						<% } %>
+						'<%= bowerDir %>/bootstrap/js/transition.js',
+						'<%= bowerDir %>/bootstrap/js/alert.js',
+						'<%= bowerDir %>/bootstrap/js/button.js',
+						'<%= bowerDir %>/bootstrap/js/carousel.js',
+						'<%= bowerDir %>/bootstrap/js/collapse.js',
+						'<%= bowerDir %>/bootstrap/js/dropdown.js',
+						'<%= bowerDir %>/bootstrap/js/modal.js',
+						'<%= bowerDir %>/bootstrap/js/tooltip.js',
+						'<%= bowerDir %>/bootstrap/js/popover.js',
+						'<%= bowerDir %>/bootstrap/js/scrollspy.js',
+						'<%= bowerDir %>/bootstrap/js/tab.js',
+						'<%= bowerDir %>/bootstrap/js/affix.js',
+					],					
+					// MAIN SCRIPTS...
+					'www/assets/js/main.min.js': [
+						'www/assets/scripts/plugins/*.js',
+						'www/assets/scripts/main.js'
+					],
 				}
 			}
 		},
@@ -55,9 +69,7 @@ module.exports = function(grunt) {
 					livereload: true
 				},
 				files: [
-					'./httpdocs/assets/bootstrap/less/*.less',
-					'./httpdocs/less/*.less',
-					'./httpdocs/less/**/*.less'
+					'www/assets/less/**/*.less'
 
 				],
 				tasks: ['less'],
@@ -66,14 +78,13 @@ module.exports = function(grunt) {
 				options: {
 					livereload: true
 				},
-				files: '<%= jshint.all %>',
+				files: 'www/assets/scripts/**/*.js',
 				tasks: ['uglify'],
 			},
 		}
 	});
 
 	// Plugin loading
-	grunt.loadNpmTasks("grunt-modernizr");
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
