@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 			},
 			all: [
 				'Gruntfile.js',
-				'./httpdocs/js/pages/*.js',
+				'./www/js/pages/*.js',
 			]
 		},
 		less: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 					// LESS source map
 					// To enable, set sourceMap to true and update sourceMapRootpath based on your install
 					sourceMap: true,
-					sourceMapFilename: 'www/assets/css/main.min.css.map',
+					sourceMapFilename: 'assets/css/main.min.css.map',
 					sourceMapRootpath: 'www/'
 				}
 			}
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 				files: {
 					// COMPONENTS
 					'www/assets/js/components.min.js': [
-						'<%= bowerDir %>/jquery/dist/jquery.js',
+						'<%= bowerDir %>/jquery/jquery.js',
 						<% if ( IE8 ){ %>
 						'<%= bowerDir %>/respond/src/respond.js',
 						<% } %>

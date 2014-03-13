@@ -83,6 +83,8 @@ var RespFlatfileGenerator = yeoman.generators.Base.extend({
 		this.mkdir('www');
 		this.mkdir('www/assets');
 		this.mkdir('www/assets/js');
+		this.mkdir('www/assets/scripts/plugins');
+
 		this.mkdir('www/assets/scripts');
 		this.mkdir('www/assets/css');
 		this.mkdir('www/assets/img');
